@@ -11,7 +11,7 @@ chunks = [text[i:i + 500] for i in range(0, len(text), 500)]
 documents = [Document(page_content=chunk) for chunk in chunks]
 
 # Create embeddings
-embeddings = OllamaEmbeddings(model="llama2")
+embeddings = OllamaEmbeddings(model="nomic-embed-text")
 
 # Store embeddings in Chroma
 vectorstore = Chroma.from_documents(
