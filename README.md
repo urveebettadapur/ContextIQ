@@ -236,6 +236,6 @@ Possible extensions include:
 
 ## 👩‍💻 Author
 
-**Urvee Bettadapur**
+**Urvee S Bettadapur**
 
 Built as a hands-on project to explore **Retrieval-Augmented Generation, semantic retrieval, vector databases, and local LLM applications**.
