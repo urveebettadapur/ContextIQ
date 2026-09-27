@@ -1,74 +1,74 @@
-# 🧠 ContextIQ
+# ContextIQ
 
 ### Retrieval-Augmented Document Q&A
 
 ContextIQ is a lightweight **Retrieval-Augmented Generation (RAG)** application that answers questions using information retrieved from a custom knowledge base.
 
-The project demonstrates the fundamental RAG pipeline — **document processing, embeddings, vector storage, semantic retrieval, and context-grounded LLM generation** — using locally hosted models through Ollama.
+The project demonstrates the core RAG pipeline, including **document processing, text chunking, embeddings, vector storage, semantic retrieval, context augmentation, and grounded LLM generation**, using locally hosted models through Ollama.
 
 ---
 
-## 🚀 How It Works
+## How It Works
 
-ContextIQ follows a simple RAG pipeline:
+ContextIQ follows a straightforward retrieval-augmented generation pipeline:
 
 ```text
-📄 Knowledge Base
-       ↓
-✂️ Text Chunking
-       ↓
-🔢 Embeddings
-       ↓
-🗄️ Chroma Vector Store
-       ↓
-🔎 Similarity Search
-       ↓
-📚 Relevant Context
-       ↓
-🤖 Llama 2
-       ↓
-💬 Grounded Answer
+Knowledge Base
+      ↓
+Text Chunking
+      ↓
+Embeddings
+      ↓
+Chroma Vector Store
+      ↓
+Similarity Search
+      ↓
+Relevant Context
+      ↓
+Llama 2
+      ↓
+Grounded Answer
 ```
 
-When a user asks a question:
+When a user submits a question:
 
 1. The knowledge base is loaded and divided into smaller chunks.
 2. Each chunk is converted into a numerical embedding.
 3. The embeddings are stored in **Chroma**.
-4. The user's question is compared against the stored embeddings.
-5. The most relevant chunks are retrieved.
-6. The retrieved information is provided to **Llama 2** as context.
-7. Llama 2 generates an answer based on the retrieved information.
+4. The user's question is converted into an embedding and compared against the stored vectors.
+5. The most relevant chunks are retrieved from the knowledge base.
+6. The retrieved information is provided to **Llama 2** as contextual information.
+7. Llama 2 generates a response grounded in the retrieved context.
 
 ---
 
-## ✨ Features
+## Features
 
-* 📚 Question answering over a custom knowledge base
-* 🔎 Semantic similarity-based retrieval
-* 🧠 Local text embeddings using `nomic-embed-text`
-* 🗄️ Local vector storage using Chroma
-* 🤖 Local LLM inference using Llama 2 and Ollama
-* 🛡️ Context-grounded responses
-* 🔐 No external LLM API key required
-* 🐍 Simple Python-based implementation
-
----
-
-## 🛠️ Tech Stack
-
-| Technology           | Purpose                              |
-| -------------------- | ------------------------------------ |
-| **Python**           | Core application                     |
-| **LangChain**        | RAG pipeline components              |
-| **Ollama**           | Local model execution                |
-| **Llama 2**          | Response generation                  |
-| **nomic-embed-text** | Text embeddings                      |
-| **Chroma**           | Vector storage and similarity search |
+* Question answering over a custom knowledge base
+* Semantic similarity-based retrieval
+* Local text embeddings using `nomic-embed-text`
+* Local vector storage using Chroma
+* Local LLM inference using Llama 2 and Ollama
+* Context-grounded responses
+* No external LLM API key required
+* Lightweight Python-based implementation
 
 ---
 
-## 📁 Project Structure
+## Tech Stack
+
+| Technology           | Purpose                                   |
+| -------------------- | ----------------------------------------- |
+| **Python**           | Core application and RAG pipeline         |
+| **LangChain**        | RAG pipeline components and orchestration |
+| **Ollama**           | Local model execution                     |
+| **Llama 2**          | Response generation                       |
+| **nomic-embed-text** | Text embeddings                           |
+| **Chroma**           | Vector storage and similarity search      |
+
+---
+
+## Project Structure
 
 ```text
 ContextIQ/
@@ -82,16 +82,16 @@ ContextIQ/
 
 ---
 
-## ⚙️ Installation
+## Installation
 
-### 1. Clone the repository
+### 1. Clone the Repository
 
 ```bash
 git clone <YOUR_GITHUB_REPOSITORY_URL>
 cd ContextIQ
 ```
 
-### 2. Create a virtual environment
+### 2. Create a Virtual Environment
 
 ```bash
 python -m venv venv
@@ -103,15 +103,15 @@ Activate it on Windows:
 venv\Scripts\activate
 ```
 
-### 3. Install Python dependencies
+### 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Install the Ollama models
+### 4. Install Ollama Models
 
-Make sure [Ollama](https://ollama.com/) is installed.
+Make sure [Ollama](https://ollama.com/) is installed on your system.
 
 Pull the Llama 2 model:
 
@@ -127,9 +127,9 @@ ollama pull nomic-embed-text
 
 ---
 
-## ▶️ Running ContextIQ
+## Running ContextIQ
 
-Start Ollama's Llama 2 model:
+Start the Llama 2 model through Ollama:
 
 ```bash
 ollama run llama2
@@ -141,7 +141,7 @@ Then, in the project terminal, run:
 python rag.py
 ```
 
-ContextIQ will prompt you for a question:
+ContextIQ will prompt you to enter a question:
 
 ```text
 Ask ContextIQ a question:
@@ -149,7 +149,7 @@ Ask ContextIQ a question:
 
 ---
 
-## 💡 Example
+## Example
 
 ### Question
 
@@ -165,77 +165,79 @@ Chroma is used as the local vector store for ContextIQ.
 
 ### Grounding Test
 
-If the system is asked something that isn't contained in the knowledge base, such as:
+ContextIQ is designed to avoid generating unsupported information when the requested information is not present in the knowledge base.
+
+For example, if asked:
 
 ```text
 What is the population of India?
 ```
 
-ContextIQ responds that the information isn't available in the provided knowledge rather than intentionally generating an unsupported answer.
+when that information is not included in the knowledge base, the system responds that the information is unavailable rather than intentionally generating an unsupported answer.
 
 ---
 
-## 🧩 Core RAG Components
+## Core RAG Components
 
 ### 1. Document Chunking
 
-The knowledge base is divided into smaller pieces so that relevant information can be retrieved efficiently.
+The knowledge base is divided into smaller text segments to allow relevant information to be retrieved efficiently.
 
 ### 2. Embeddings
 
-The `nomic-embed-text` model converts text into numerical representations that capture semantic meaning.
+The `nomic-embed-text` model converts text into numerical representations that capture semantic relationships between pieces of information.
 
 ### 3. Vector Store
 
-Chroma stores the embeddings and enables similarity-based retrieval.
+Chroma stores the generated embeddings and enables efficient similarity-based retrieval.
 
 ### 4. Retrieval
 
-When a question is asked, ContextIQ performs a similarity search and retrieves the most relevant chunks from the knowledge base.
+When a question is submitted, ContextIQ performs a similarity search against the stored embeddings and retrieves the most relevant sections of the knowledge base.
 
 ### 5. Context Augmentation
 
-The retrieved chunks are inserted into the prompt provided to the language model.
+The retrieved information is added to the prompt provided to the language model, giving the model relevant context for generating its response.
 
 ### 6. Generation
 
-Llama 2 uses the retrieved context to generate the final response.
+Llama 2 uses the retrieved context to generate the final answer.
 
 ---
 
-## 📚 Learning Outcomes
+## Learning Outcomes
 
-This project was built to understand the fundamentals of **Retrieval-Augmented Generation** and demonstrates:
+This project was developed as a hands-on exploration of **Retrieval-Augmented Generation** and demonstrates the following concepts:
 
 * Document processing
 * Text chunking
 * Text embeddings
 * Vector databases
 * Semantic search
-* Similarity retrieval
+* Similarity-based retrieval
 * Context augmentation
 * LLM-based generation
 * Grounded question answering
 
 ---
 
-## 🔮 Future Improvements
+## Future Improvements
 
-Possible extensions include:
+Potential extensions include:
 
-* 📄 PDF and multi-document ingestion
-* ✂️ More advanced text splitting
-* 🏷️ Metadata filtering
-* 🔎 Hybrid keyword + semantic search
-* 🎯 Retrieval reranking
-* 🌐 FastAPI REST API
-* 💻 Web-based chat interface
-* 📊 RAG evaluation and retrieval metrics
+* PDF and multi-document ingestion
+* Advanced text-splitting strategies
+* Metadata-based filtering
+* Hybrid keyword and semantic search
+* Retrieval reranking
+* FastAPI REST API
+* Web-based chat interface
+* RAG evaluation and retrieval metrics
 
 ---
 
-## 👩‍💻 Author
+## Author
 
 **Urvee S Bettadapur**
 
-Built as a hands-on project to explore **Retrieval-Augmented Generation, semantic retrieval, vector databases, and local LLM applications**.
+ContextIQ was developed as a hands-on project to explore **Retrieval-Augmented Generation, semantic retrieval, vector databases, and locally hosted LLM applications**.
